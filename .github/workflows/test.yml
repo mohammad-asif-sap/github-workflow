@@ -47,24 +47,23 @@ jobs:
       - name: Run Custom Conflict Resolver Docker Image
         id: conflict_resolution
         run: |
-          docker run eu.gcr.io/sap-ml-mlf-dev/com.sap.ai/rage-proxy/hackathon-code-rebaser:latest
-          # docker run \
-          #   -v $(pwd):/repo \
-          #   -e SOURCE_BRANCH=${{ github.event.inputs.source_branch }} \
-          #   -e DEST_BRANCH=${{ github.event.inputs.destination_branch }} \
-          #   -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
-          #   eu.gcr.io/sap-ml-mlf-dev/com.sap.ai/rage-proxy/hackathon-code-rebaser:latest
-          # # Check signals from the Python script
-          # if [ -f conflict_resolved.txt ]; then
-          #   echo "conflict_resolved=true" >> $GITHUB_ENV
-          # else
-          #   echo "conflict_resolved=false" >> $GITHUB_ENV
-          # fi
-          # if [ -f no_changes.txt ]; then
-          #   echo "no_changes=true" >> $GITHUB_ENV
-          # else
-          #   echo "no_changes=false" >> $GITHUB_ENV
-          # fi
+          docker run \
+            -v $(pwd):/repo \
+            -e SOURCE_BRANCH=${{ github.event.inputs.source_branch }} \
+            -e DEST_BRANCH=${{ github.event.inputs.destination_branch }} \
+            -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+            eu.gcr.io/sap-ml-mlf-dev/com.sap.ai/rage-proxy/hackathon-code-rebaser:latest
+          # Check signals from the Python script
+          if [ -f conflict_resolved.txt ]; then
+            echo "conflict_resolved=true" >> $GITHUB_ENV
+          else
+            echo "conflict_resolved=false" >> $GITHUB_ENV
+          fi
+          if [ -f no_changes.txt ]; then
+            echo "no_changes=true" >> $GITHUB_ENV
+          else
+            echo "no_changes=false" >> $GITHUB_ENV
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
