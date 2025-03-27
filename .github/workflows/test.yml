@@ -53,7 +53,7 @@ jobs:
           ls
           echo "end"
           cat gcr_key.json | docker login -u _json_key --password-stdin eu.gcr.io
-          docker run docker push eu.gcr.io/sap-ml-mlf-dev/com.sap.ai/rage-proxy/hackathon-code-rebaser-new1
+          docker run eu.gcr.io/sap-ml-mlf-dev/com.sap.ai/rage-proxy/hackathon-code-rebaser-new1
           # docker run \
           #   -v $(pwd):/repo \
           #   -e SOURCE_BRANCH=${{ github.event.inputs.source_branch }} \
