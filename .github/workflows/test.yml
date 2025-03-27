@@ -47,7 +47,13 @@ jobs:
       - name: Run Custom Conflict Resolver Docker Image
         id: conflict_resolution
         run: |
-          docker run eu.gcr.io/sap-ml-mlf-dev/com.sap.ai/rage-proxy/hackathon-code-rebaser:latest
+          echo "start"
+          ls 
+          echo "echo:$(pwd)"
+          ls
+          echo "end"
+          cat gcr_key.json | docker login -u _json_key --password-stdin eu.gcr.io
+          docker run --platform linux/amd64 eu.gcr.io/sap-ml-mlf-dev/com.sap.ai/rage-proxy/hackathon-code-rebaser-new1
           # docker run \
           #   -v $(pwd):/repo \
           #   -e SOURCE_BRANCH=${{ github.event.inputs.source_branch }} \
