@@ -41,8 +41,8 @@ jobs:
       - name: Fetch All Branches
         run: git fetch --all
 
-      - name: Checkout Source Branch
-        run: git checkout ${{ github.event.inputs.SOURCE_BRANCH }}
+      # - name: Checkout Source Branch
+      #   run: git checkout ${{ github.event.inputs.SOURCE_BRANCH }}
 
       - name: Run Custom Conflict Resolver Docker Image
         id: conflict_resolution
