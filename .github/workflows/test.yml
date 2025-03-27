@@ -1,0 +1,108 @@
+name: Auto Merge Conflict Resolver
+on:
+  workflow_dispatch:
+    inputs:
+      source_branch:
+        description: "Enter the source branch (feature branch)"
+        required: true
+      destination_branch:
+        description: "Enter the destination branch (main branch)"
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  merge-conflict-resolver:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh
+
+      - name: Ensure 'auto-merge' Label Exists
+        run: |
+          gh label list | grep -q 'auto-merge' || gh label create 'auto-merge' --color 'f6a800' --description 'Label for auto-merged PRs'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch All Branches
+        run: git fetch --all
+
+      - name: Checkout Source Branch
+        run: git checkout ${{ github.event.inputs.source_branch }}
+
+      - name: Run Custom Conflict Resolver Docker Image
+        id: conflict_resolution
+        run: |
+          docker run eu.gcr.io/sap-ml-mlf-dev/com.sap.ai/rage-proxy/hackathon-code-rebaser:latest
+          # docker run \
+          #   -v $(pwd):/repo \
+          #   -e SOURCE_BRANCH=${{ github.event.inputs.source_branch }} \
+          #   -e DEST_BRANCH=${{ github.event.inputs.destination_branch }} \
+          #   -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+          #   eu.gcr.io/sap-ml-mlf-dev/com.sap.ai/rage-proxy/hackathon-code-rebaser:latest
+          # # Check signals from the Python script
+          # if [ -f conflict_resolved.txt ]; then
+          #   echo "conflict_resolved=true" >> $GITHUB_ENV
+          # else
+          #   echo "conflict_resolved=false" >> $GITHUB_ENV
+          # fi
+          # if [ -f no_changes.txt ]; then
+          #   echo "no_changes=true" >> $GITHUB_ENV
+          # else
+          #   echo "no_changes=false" >> $GITHUB_ENV
+          # fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check for Differences Before Creating PR
+        id: check_diff
+        if: env.no_changes == 'false'  
+        run: |
+          git fetch origin ${{ github.event.inputs.destination_branch }}
+          DIFF_CHECK=$(git log origin/${{ github.event.inputs.destination_branch }}..${{ github.event.inputs.source_branch }} --oneline)
+          if [ -n "$DIFF_CHECK" ]; then
+            echo "Differences found between ${{ github.event.inputs.source_branch }} and ${{ github.event.inputs.destination_branch }}."
+            echo "has_diff=true" >> $GITHUB_ENV
+          else
+            echo "No differences found between ${{ github.event.inputs.source_branch }} and ${{ github.event.inputs.destination_branch }}."
+            echo "has_diff=false" >> $GITHUB_ENV
+          fi
+
+      - name: Create Pull Request
+        if: env.has_diff == 'true'  
+        run: |
+          echo "Creating Pull Request from ${{ github.event.inputs.source_branch }} to ${{ github.event.inputs.destination_branch }}..."
+          gh pr create \
+            --base ${{ github.event.inputs.destination_branch }} \
+            --head ${{ github.event.inputs.source_branch }} \
+            --title "Merge: ${{ github.event.inputs.source_branch }} → ${{ github.event.inputs.destination_branch }}" \
+            --body "Merge completed successfully. Conflicts (if any) resolved automatically by custom resolver. Please review before merging." \
+            --label "auto-merge"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Send Notification
+        run: |
+          if [ "${{ env.conflict_resolved }}" == "true" ]; then
+            echo "Merge conflict detected and resolved in ${{ github.event.inputs.source_branch }} by custom resolver. PR created for review."
+          elif [ "${{ env.has_diff }}" == "true" ]; then
+            echo "No conflicts detected, but changes present. PR created to merge ${{ github.event.inputs.source_branch }} into ${{ github.event.inputs.destination_branch }}."
+          elif [ "${{ env.no_changes }}" == "true" ]; then
+            echo "No conflicts or changes detected. No PR created."
+          else
+            echo "No differences detected between ${{ github.event.inputs.source_branch }} and ${{ github.event.inputs.destination_branch }} after resolution. No PR created."
+          fi
