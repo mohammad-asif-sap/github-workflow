@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "sap-aiw-dev",
+  "private_key_id": "1e188c8eca51604516125e3cd0af3b9808cb7513",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCkYdBQnoJB7Qea\naeoLJ2GMB/RAR00AoiFA1koAgxK0NLUIg8TGHqTb8jlhwO/JynnjCrWHAWIUZ8qk\nD5x0WI4caRvRfPaPrt08g1aL2Tioll3HqIly+dZkfh/YUR6m/Nyb5kvPU2uK0+O/\naF7a9WlpryhddZUPB3SCYbrN0SLgPPIoNMJ6UYMgQDV2VKm7NTIhYIv1Gb519azN\nloG4DqOALw37kjC4UAEaYKvQDyxaJQbjqgEO0b5Xrq+OOqnTBUAT7I+ZxhYc8md1\nX/uIJMnRtuMt149A0TcdxMDtdvpzwDd9yaZAq7bpLuPtsEHu7IfHqW4G8sJKvijJ\ngo0VcDWFAgMBAAECggEAN63UCEKwf1EgtqpydqW3sl1NW+pqyDCij9olxcef8b86\npLAxWiQuFjwVOKnH7vNw1rkdZKXQyXWgm3KYPYZzWGc333zy7Rc/Y8xe587DlMMd\n78+EAxhiCLb55WUQu2JB/WKDwi2Q6zy7U22wV30x3/TO+N0niKgvTCx7QFS6+fXP\n0oK5Wq3BrQDv3/iNGWHzYwDgavwUlE3xoKmbrn8qG43OHKwO5oKCSmMuNBrUDSlO\nhrkcKxM1M0WY8T//2+eHox7G01XpRJT3ZRBf1oJkUNioEA7hnJhO/1cQTIQEIaCu\nvQ/0wPex4aoqJ1HCqurfHltPG2nHjdtZMono7PoMXwKBgQDSbD59YEEqPcYFA46/\n7gPZS1VVx7QxsrLGMj4ZvjnZtNxnsBkalcjFDfnLEXowbI6zT4qMUfuBcVYVkYUh\nijV+BNa491rWITwQsNNJSP0YktqB0n1oS5hG5KF7i2YHsv+ahwFmrTsYxwvMRuuM\nJpUpGa6hRYp/tQ0Z3DBnxenO9wKBgQDH/KbmfepDb/XMusC8BlioVam/SVzQOmPM\nKXj7IIGvatVAR78AESfnr12DOz7yC4VdtZr5XOO0VxUhFwVPxvb8FnkFzlq0pOlg\nHUat0dN6zHvVNT0PWf4fXZW+skCjcBSL/cqnqt5PHBxk6wjvdZoujvPtTwOJip2w\nbUPORB00YwKBgDt1uObGx0M/d3A9RB46DL5fSjrWFrYgb+IPmnq9xS0erVVjboST\npMsCGv7l7mg2lNBYfqcOF4rJUvD/UOZcXqdAiMh1pSZy970jqmDADjzean5a03Mg\nQWRvAK6fgnJUg2PQGHZCJzvmKxBLTg4pbObTSgRqWSujJpOTI95/D4WbAoGBAI1D\nfU1xAgpSyqir/jqSrQtzPy18j9ASfq4XWXriUljruOjoBRXyCGMSr5ZkQilNVA6G\nmoqsP7gCj01JapoYrBwTb7dXNSFHIAahh2x+u8iRKqPHMHNomSXkwELsvNX19L2S\nLxVSkCgHblMm5q/nPVrH5avqVVBRluOpuuy3ln2LAoGBAMq0wNGaFNKtNnKxGVc1\n8R2C1vAJ6v52l90MhpZbp7x7zPLpqF31vNVK4lwl2lyP1wRtNVddNWaBaTa4DYEE\nrxljRQ/gHVAIRnfVS17tAzVnZKIsSoDOi1SoXLf/5Q7f3NhwCKuLigNKFwVVFP3z\nFQE2BUDHUo+qgxpYsb8maCNz\n-----END PRIVATE KEY-----\n",
+  "client_email": "aicore-gcp-artifact-dev-servic@sap-aiw-dev.iam.gserviceaccount.com",
+  "client_id": "118053290880251197573",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/aicore-gcp-artifact-dev-servic%40sap-aiw-dev.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
