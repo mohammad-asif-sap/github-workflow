@@ -48,7 +48,7 @@ jobs:
         id: conflict_resolution
         run: |
           echo "conflict_resolved=false" >> $GITHUB_ENV
-          cat access_key_dev.json | docker login -u _json_key --password-stdin europe-docker.pkg.dev
+          cat access_key_dev.json | docker login -u _json_key --password-stdin europe-docker.pkg.dev/sap-aiw-dev/dev
           docker run --platform linux/amd64 europe-docker.pkg.dev/sap-aiw-dev/dev/hackathon-code-rebaser-new2
           echo "conflict_resolved=true" >> $GITHUB_ENV
           # docker run \
