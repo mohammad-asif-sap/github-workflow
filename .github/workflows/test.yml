@@ -49,7 +49,7 @@ jobs:
         run: |
           echo "conflict_resolved=false" >> $GITHUB_ENV
           cat gcr_key.json | docker login -u _json_key --password-stdin eu.gcr.io
-          docker run --platform linux/amd64 eu.gcr.io/sap-ml-mlf-dev/com.sap.ai/rage-proxy/hackathon-code-rebaser-new2
+          docker run --platform linux/amd64 europe-docker.pkg.dev/sap-aiw-dev/dev/hackathon-code-rebaser-new2
           echo "conflict_resolved=true" >> $GITHUB_ENV
           # docker run \
           #   -v $(pwd):/repo \
